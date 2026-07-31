@@ -16,68 +16,30 @@
   }
   * { box-sizing: border-box; }
   html, body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     background: var(--page);
     color: var(--ink);
     font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
-  .wrap {
-    max-width: 896px;
-    margin: 0 auto;
-    padding: 40px 24px 96px;
-  }
+  .wrap { max-width: 896px; margin: 0 auto; padding: 40px 24px 96px; }
 
-  /* Header */
-  header {
-    border-bottom: 1px solid var(--ink);
-    padding-bottom: 24px;
-  }
-  .head-row {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 32px;
-  }
+  header { border-bottom: 1px solid var(--ink); padding-bottom: 24px; }
+  .head-row { display: flex; flex-direction: column-reverse; gap: 32px; }
   h1 {
-    margin: 0;
-    font-weight: 700;
+    margin: 0; font-weight: 700;
     font-size: clamp(2.2rem, 7vw, 4rem);
-    line-height: 1;
-    letter-spacing: -0.02em;
+    line-height: 1; letter-spacing: -0.02em;
   }
-  .intro {
-    margin: 14px 0 0;
-    font-size: 13px;
-    line-height: 1.5;
-    max-width: 44ch;
-  }
+  .intro { margin: 14px 0 0; font-size: 13px; line-height: 1.5; max-width: 44ch; }
+  .rules { margin: 10px 0 0; font-size: 11px; line-height: 1.5; color: var(--grey); max-width: 44ch; }
 
-  /* Example collage */
-  .collage {
-    position: relative;
-    width: 218px;
-    height: 158px;
-  }
-  .collage img {
-    position: absolute;
-    display: block;
-    border: 1px solid var(--ink);
-  }
-  .eg {
-    margin-top: 8px;
-    font-size: 10px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-    color: var(--grey);
-  }
+  .collage { position: relative; width: 218px; height: 158px; }
+  .collage img { position: absolute; display: block; border: 1px solid var(--ink); }
+  .eg { margin-top: 8px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--grey); }
 
   @media (min-width: 640px) {
-    .head-row {
-      flex-direction: row;
-      align-items: flex-start;
-      justify-content: space-between;
-    }
+    .head-row { flex-direction: row; align-items: flex-start; justify-content: space-between; }
     .collage-col { flex-shrink: 0; }
   }
 
@@ -86,37 +48,56 @@
     margin-top: 32px;
     background: var(--box);
     border: 2px dashed var(--ink);
-    min-height: 300px;
-    cursor: pointer;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 28px;
-    padding: 32px;
-    text-align: center;
+    min-height: 300px; cursor: pointer;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 28px; padding: 32px; text-align: center;
   }
   .dropbox.over { background: var(--box-active); }
   .dropbox:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
-  .dropbox p {
-    margin: 0;
-    font-size: 1.35rem;
-  }
-  .dropbox b { font-weight: 700; }
+  .dropbox p { margin: 0; font-size: 1.35rem; }
+  b { font-weight: 700; }
 
-  .notice {
-    margin-top: 12px;
-    min-height: 20px;
-    font-size: 14px;
-    text-align: center;
+  /* Editor */
+  #editor { display: none; margin-top: 32px; }
+  #editor.on { display: block; }
+  .ed-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--grey); margin-bottom: 8px;
+  }
+  .ed-instruct { font-size: 13px; margin: 0 0 12px; }
+  .canvas-hold {
+    background: var(--box); border: 1px solid var(--ink);
+    padding: 12px; display: flex; justify-content: center;
+  }
+  canvas {
+    display: block; max-width: 100%; height: auto;
+    cursor: crosshair; touch-action: none; background: #fff;
   }
 
-  footer {
-    margin-top: 64px;
-    font-size: 11px;
-    color: var(--grey);
-  }
+  .bar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+  .bar + .bar { margin-top: 8px; }
+  .sep { width: 1px; align-self: stretch; background: var(--grey); margin: 0 4px; }
+  .lab { font-size: 11px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--grey); }
 
+  button {
+    font: inherit; font-size: 13px;
+    background: #fff; color: var(--ink);
+    border: 1px solid var(--ink); border-radius: 0;
+    padding: 9px 14px; cursor: pointer;
+  }
+  button:hover { background: var(--box-active); }
+  button:disabled { color: var(--grey); border-color: var(--grey); cursor: default; background: #fff; }
+  button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+  button.on { background: var(--ink); color: #fff; font-weight: 700; }
+  button.primary { background: var(--ink); color: #fff; font-weight: 700; margin-left: auto; }
+  button.primary:hover { background: #000; }
+  button.size { padding: 9px 12px; }
+  #sizes.hide { display: none; }
+
+  .notice { margin-top: 12px; min-height: 20px; font-size: 14px; text-align: center; }
+  footer { margin-top: 64px; font-size: 11px; color: var(--grey); }
   input[type="file"] { display: none; }
 </style>
 </head>
@@ -128,6 +109,7 @@
       <div>
         <h1>yesssssss</h1>
         <p class="intro">screen shot your worst sexts, sent or received, the auto correct, the way too abstract it all got lost, the clunk and the awkward and drop it (anonymously) in the box</p>
+        <p class="rules">Text only — no photos of anyone's body. Everyone in the screen shot over 18. Black out names and pictures before you send it.</p>
       </div>
 
       <div class="collage-col">
@@ -149,44 +131,268 @@
     <p id="dropcopy"><b>Choose a file</b> or drag it here.</p>
   </div>
 
-  <div class="notice" id="notice" aria-live="polite"></div>
+  <div id="editor">
+    <div class="ed-head">
+      <span>Black it out</span>
+      <span id="counter"></span>
+    </div>
+    <p class="ed-instruct" id="instruct">Drag a box over anything that says who they are — names, profile pictures, numbers.</p>
 
+    <div class="canvas-hold"><canvas id="canvas"></canvas></div>
+
+    <div class="bar">
+      <button type="button" id="tool-box" class="on">Box</button>
+      <button type="button" id="tool-pen">Pen</button>
+      <span class="sep" id="sep"></span>
+      <span id="sizes">
+        <span class="lab" style="margin-right:4px;">Nib</span>
+        <button type="button" class="size" data-size="0">S</button>
+        <button type="button" class="size on" data-size="1">M</button>
+        <button type="button" class="size" data-size="2">L</button>
+      </span>
+    </div>
+
+    <div class="bar">
+      <button type="button" id="undo">Undo</button>
+      <button type="button" id="clearall">Clear all</button>
+      <button type="button" id="cancel">Cancel</button>
+      <button type="button" id="send" class="primary">Drop it in the box</button>
+    </div>
+  </div>
+
+  <div class="notice" id="notice" aria-live="polite"></div>
   <input type="file" id="fileinput" accept="image/*" multiple>
 
   <footer>
-    Drops are anonymous. No names, no accounts, nothing traced back. Crop out anything that identifies the other person.
+    Drops are anonymous. No names, no accounts, no analytics, nothing traced back. Everything you black out is burned into the picture before it leaves your device.
   </footer>
 
 </div>
 
 <script>
-// FRONT END ONLY — nothing is uploaded or stored anywhere yet.
-// To make it real, send `files` to a backend inside handleFiles().
+// FRONT END ONLY — nothing is uploaded yet.
+// Redaction is real: marks are flattened into the pixels and the re-draw
+// strips EXIF. Wire up the upload where marked TODO in send().
 (function () {
   var box = document.getElementById("dropbox");
   var input = document.getElementById("fileinput");
   var notice = document.getElementById("notice");
-  var copy = document.getElementById("dropcopy");
+  var editor = document.getElementById("editor");
+  var canvas = document.getElementById("canvas");
+  var ctx = canvas.getContext("2d");
+  var counter = document.getElementById("counter");
+  var instruct = document.getElementById("instruct");
+  var sizesWrap = document.getElementById("sizes");
+  var sep = document.getElementById("sep");
+
+  var MAX_VIEW = 640;
+  var MAX_OUT = 1400;
+  var SIZE_FACTORS = [0.018, 0.038, 0.07]; // nib width as a share of image width
+
+  var queue = [], qTotal = 0, done = 0;
+  var img = null;
+  var marks = [];        // {type:'box',x,y,w,h} | {type:'pen',pts:[],size}
+  var live = null;
+  var drawing = false, start = null;
+  var viewScale = 1;
+  var tool = "box";
+  var sizeIdx = 1;
   var depth = 0;
 
-  function setCopy(html) { copy.innerHTML = html; }
+  /* ---------- queue ---------- */
 
   function handleFiles(fileList) {
     var files = [].slice.call(fileList || []).filter(function (f) {
       return f.type.indexOf("image/") === 0;
     });
-    if (!files.length) {
-      notice.textContent = "Only screen shots accepted.";
-      return;
-    }
+    if (!files.length) { notice.textContent = "Only screen shots accepted."; return; }
     notice.textContent = "";
-    setCopy("<b>Uploading\u2026</b>");
-    window.setTimeout(function () {
-      setCopy("<b>Choose a file</b> or drag it here.");
-      notice.textContent =
-        files.length + " screen shot" + (files.length === 1 ? "" : "s") + " in the box. Gone.";
-    }, 900);
+    queue = files; qTotal = files.length; done = 0;
+    next();
   }
+
+  function next() {
+    if (!queue.length) { finish(); return; }
+    var file = queue.shift();
+    var reader = new FileReader();
+    reader.onerror = function () { notice.textContent = "Couldn't read that one."; next(); };
+    reader.onload = function () {
+      var im = new Image();
+      im.onerror = function () { notice.textContent = "Couldn't read that one."; next(); };
+      im.onload = function () { img = im; marks = []; live = null; openEditor(); };
+      im.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function openEditor() {
+    box.style.display = "none";
+    editor.classList.add("on");
+    counter.textContent = (done + 1) + " of " + qTotal;
+    viewScale = Math.min(1, MAX_VIEW / img.naturalWidth);
+    canvas.width = Math.round(img.naturalWidth * viewScale);
+    canvas.height = Math.round(img.naturalHeight * viewScale);
+    redraw(); updateTools();
+    editor.scrollIntoView({ block: "nearest" });
+  }
+
+  function closeEditor() {
+    editor.classList.remove("on");
+    box.style.display = "flex";
+    img = null; marks = []; live = null;
+  }
+
+  function finish() {
+    closeEditor();
+    if (done > 0) {
+      notice.textContent = done + " screen shot" + (done === 1 ? "" : "s") + " in the box. Gone.";
+    }
+  }
+
+  /* ---------- painting ---------- */
+
+  function nib() { return Math.max(6, Math.round(img.naturalWidth * SIZE_FACTORS[sizeIdx])); }
+
+  function drawMark(c, m, s) {
+    c.fillStyle = "#000";
+    c.strokeStyle = "#000";
+    if (m.type === "box") {
+      c.fillRect(m.x * s, m.y * s, m.w * s, m.h * s);
+    } else {
+      var w = m.size * s;
+      if (m.pts.length === 1) {
+        c.beginPath();
+        c.arc(m.pts[0].x * s, m.pts[0].y * s, w / 2, 0, Math.PI * 2);
+        c.fill();
+        return;
+      }
+      c.lineWidth = w;
+      c.lineCap = "round";
+      c.lineJoin = "round";
+      c.beginPath();
+      c.moveTo(m.pts[0].x * s, m.pts[0].y * s);
+      for (var i = 1; i < m.pts.length; i++) c.lineTo(m.pts[i].x * s, m.pts[i].y * s);
+      c.stroke();
+    }
+  }
+
+  function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    marks.concat(live ? [live] : []).forEach(function (m) { drawMark(ctx, m, viewScale); });
+  }
+
+  function pos(e) {
+    var b = canvas.getBoundingClientRect();
+    var sx = canvas.width / b.width, sy = canvas.height / b.height;
+    return {
+      x: (e.clientX - b.left) * sx / viewScale,
+      y: (e.clientY - b.top) * sy / viewScale
+    };
+  }
+
+  function norm(a, b) {
+    return {
+      type: "box",
+      x: Math.min(a.x, b.x), y: Math.min(a.y, b.y),
+      w: Math.abs(a.x - b.x), h: Math.abs(a.y - b.y)
+    };
+  }
+
+  canvas.addEventListener("pointerdown", function (e) {
+    if (!img) return;
+    e.preventDefault();
+    canvas.setPointerCapture(e.pointerId);
+    drawing = true;
+    start = pos(e);
+    live = tool === "box"
+      ? { type: "box", x: start.x, y: start.y, w: 0, h: 0 }
+      : { type: "pen", pts: [start], size: nib() };
+    redraw();
+  });
+
+  canvas.addEventListener("pointermove", function (e) {
+    if (!drawing) return;
+    if (tool === "box") live = norm(start, pos(e));
+    else live.pts.push(pos(e));
+    redraw();
+  });
+
+  function endDraw() {
+    if (!drawing) return;
+    drawing = false;
+    if (live) {
+      if (live.type === "box") { if (live.w > 3 && live.h > 3) marks.push(live); }
+      else marks.push(live);
+    }
+    live = null;
+    redraw(); updateTools();
+  }
+  canvas.addEventListener("pointerup", endDraw);
+  canvas.addEventListener("pointercancel", endDraw);
+
+  /* ---------- tools ---------- */
+
+  function setTool(t) {
+    tool = t;
+    document.getElementById("tool-box").classList.toggle("on", t === "box");
+    document.getElementById("tool-pen").classList.toggle("on", t === "pen");
+    sizesWrap.classList.toggle("hide", t !== "pen");
+    sep.style.display = t === "pen" ? "block" : "none";
+    instruct.textContent = t === "box"
+      ? "Drag a box over anything that says who they are — names, profile pictures, numbers."
+      : "Scribble over anything that says who they are. Pick a nib size below.";
+  }
+
+  document.getElementById("tool-box").addEventListener("click", function () { setTool("box"); });
+  document.getElementById("tool-pen").addEventListener("click", function () { setTool("pen"); });
+
+  [].forEach.call(document.querySelectorAll(".size"), function (b) {
+    b.addEventListener("click", function () {
+      sizeIdx = parseInt(b.getAttribute("data-size"), 10);
+      [].forEach.call(document.querySelectorAll(".size"), function (o) {
+        o.classList.toggle("on", o === b);
+      });
+    });
+  });
+
+  function updateTools() {
+    document.getElementById("undo").disabled = marks.length === 0;
+    document.getElementById("clearall").disabled = marks.length === 0;
+  }
+
+  document.getElementById("undo").addEventListener("click", function () {
+    marks.pop(); redraw(); updateTools();
+  });
+  document.getElementById("clearall").addEventListener("click", function () {
+    marks = []; redraw(); updateTools();
+  });
+  document.getElementById("cancel").addEventListener("click", function () {
+    queue = []; finish();
+  });
+
+  /* ---------- export ---------- */
+
+  function flatten() {
+    var scale = Math.min(1, MAX_OUT / Math.max(img.naturalWidth, img.naturalHeight));
+    var out = document.createElement("canvas");
+    out.width = Math.round(img.naturalWidth * scale);
+    out.height = Math.round(img.naturalHeight * scale);
+    var octx = out.getContext("2d");
+    octx.drawImage(img, 0, 0, out.width, out.height);
+    marks.forEach(function (m) { drawMark(octx, m, scale); });
+    return out.toDataURL("image/jpeg", 0.78);
+  }
+
+  document.getElementById("send").addEventListener("click", function () {
+    if (!img) return;
+    var dataUrl = flatten();   // redacted, metadata-free, ready to upload
+    // TODO: POST dataUrl (or a Blob) to your backend here.
+    done++;
+    if (queue.length) next(); else finish();
+  });
+
+  /* ---------- picking files ---------- */
 
   box.addEventListener("click", function () { input.click(); });
   box.addEventListener("keydown", function (e) {
@@ -197,7 +403,6 @@
     e.target.value = "";
   });
 
-  // Drag anywhere on the page
   document.addEventListener("dragenter", function (e) {
     e.preventDefault(); depth++; box.classList.add("over");
   });
@@ -209,6 +414,8 @@
     e.preventDefault(); depth = 0; box.classList.remove("over");
     handleFiles(e.dataTransfer.files);
   });
+
+  setTool("box");
 })();
 </script>
 </body>
