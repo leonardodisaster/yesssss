@@ -469,7 +469,7 @@ var sendBtn = document.getElementById("send");
 
   /* ---------- export ---------- */
 
-  function flatten() {
+    function flatten() {
     var scale = Math.min(1, MAX_OUT / Math.max(img.naturalWidth, img.naturalHeight));
     var out = document.createElement("canvas");
     out.width = Math.round(img.naturalWidth * scale);
@@ -477,8 +477,12 @@ var sendBtn = document.getElementById("send");
     var octx = out.getContext("2d");
     octx.drawImage(img, 0, 0, out.width, out.height);
     marks.forEach(function (m) { drawMark(octx, m, scale); });
-   
+    return new Promise(function (resolve) {
+      out.toBlob(resolve, "image/png");
+    });
   }
+   
+  
 
   sendBtn.addEventListener("click", async function () {
   if (!img || sendBtn.disabled) return;
@@ -489,7 +493,7 @@ var sendBtn = document.getElementById("send");
 
   try {
     // flatten() burns the black boxes in and strips metadata
-    var blob = await (await fetch(flatten())).blob();
+    var blob = await flatten();
     var name = Date.now() + "-" +
                Math.random().toString(36).slice(2, 10) + ".png";
 
