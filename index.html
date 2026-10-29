@@ -188,8 +188,7 @@
     </div>
 
     <div class="rule hair"></div>
-    <p class="rules">Text only — no photos of anyone&rsquo;s body &middot; Everyone in the screen shot over 18 &middot; Black out names and pictures before you send</p>
-  </header>
+    <p class="rules">Keep it to text — no photos of anyone&rsquo;s body, everyone in it over 18, and black out anything that&rsquo;d give either of you away.</p>  </header>
 
   <div class="dropbox" id="dropbox" role="button" tabindex="0" aria-label="Choose a screen shot or drag it here">
     <svg width="80" height="80" viewBox="0 0 88 88" fill="none" aria-hidden="true">
@@ -204,8 +203,7 @@
       <span>Black it out</span>
       <span id="counter"></span>
     </div>
-    <p class="ed-instruct" id="instruct">Drag a box over anything that says who they are — names, profile pictures, numbers.</p>
-
+    <p class="ed-instruct" id="instruct">Black out the name at the top, any photos, numbers or handles. Yours too! </p>
     <div class="canvas-hold"><canvas id="canvas"></canvas></div>
 
     <div class="bar">
@@ -435,9 +433,9 @@ var sendBtn = document.getElementById("send");
     document.getElementById("tool-pen").classList.toggle("on", t === "pen");
     sizesWrap.classList.toggle("hide", t !== "pen");
     sep.style.display = t === "pen" ? "block" : "none";
-    instruct.textContent = t === "box"
-      ? "Drag a box over anything that says who they are — names, profile pictures, numbers."
-      : "Scribble over anything that says who they are. Pick a nib size below.";
+        instruct.textContent = t === "box"
+      ? "Black out the name at the top, any photos, numbers or handles. Yours too!"
+      : "Scribble over the name at the top, photos, numbers, handles. Yours too. Nib size below.";
   }
 
   document.getElementById("tool-box").addEventListener("click", function () { setTool("box"); });
