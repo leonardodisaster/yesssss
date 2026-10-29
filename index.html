@@ -243,9 +243,7 @@
 </div>
 
 <script>
-// FRONT END ONLY — nothing is uploaded yet.
-// Redaction is real: marks are flattened into the pixels and the re-draw
-// strips EXIF. Wire up the upload where marked TODO in send().
+
 (function () {
   var box = document.getElementById("dropbox");
   var input = document.getElementById("fileinput");
@@ -259,9 +257,13 @@
   var sep = document.getElementById("sep");
   var success = document.getElementById("success");
   var yumtext = document.getElementById("yumtext");
-
+// --- config ---
+var SUPABASE_URL = "https://qjqrumwdnvmkwjefbime.supabase.co";
+var SUPABASE_KEY = "sb_publishable_BREeyI6e1Hx6VEmGG3fuGw_NI9-5NHb";
+var BUCKET = "drops";
+var sendBtn = document.getElementById("send");
   var MAX_VIEW = 640;
-  var MAX_OUT = 1400;
+  var MAX_OUT = 2400;
   var SIZE_FACTORS = [0.018, 0.038, 0.07]; // nib width as a share of image width
 
   var queue = [], qTotal = 0, done = 0;
@@ -475,16 +477,48 @@
     var octx = out.getContext("2d");
     octx.drawImage(img, 0, 0, out.width, out.height);
     marks.forEach(function (m) { drawMark(octx, m, scale); });
-    return out.toDataURL("image/jpeg", 0.78);
+   
   }
 
-  document.getElementById("send").addEventListener("click", function () {
-    if (!img) return;
-    var dataUrl = flatten();   // redacted, metadata-free, ready to upload
-    // TODO: POST dataUrl (or a Blob) to your backend here.
+  sendBtn.addEventListener("click", async function () {
+  if (!img || sendBtn.disabled) return;
+
+  sendBtn.disabled = true;
+  sendBtn.textContent = "Sending…";
+  notice.textContent = "";
+
+  try {
+    // flatten() burns the black boxes in and strips metadata
+    var blob = await (await fetch(flatten())).blob();
+    var name = Date.now() + "-" +
+               Math.random().toString(36).slice(2, 10) + ".png";
+
+    var res = await fetch(
+      SUPABASE_URL + "/storage/v1/object/" + BUCKET + "/" + name,
+      {
+        method: "POST",
+        headers: {
+          apikey: SUPABASE_KEY,
+          Authorization: "Bearer " + SUPABASE_KEY,
+          "Content-Type": "image/png",
+          "x-upsert": "false"
+        },
+        body: blob
+      }
+    );
+
+    if (!res.ok) throw new Error(await res.text());
+
     done++;
     if (queue.length) next(); else finish();
-  });
+  } catch (err) {
+    notice.textContent = "That didn't send. Have another go?";
+    console.error(err);
+  } finally {
+    sendBtn.disabled = false;
+    sendBtn.textContent = "Drop it in the box";
+  }
+});
 
   /* ---------- picking files ---------- */
 
